@@ -6,11 +6,22 @@ import java.util.List;
 
 @Document(collection = "locationDetails")
 public class LocationDetail {
-    private final String locationName;
-    private final List<String> neighbours;
+    private String locationName;
+    private List<String> neighbours;
 
-    public LocationDetail(String locationName, List<String> neighbours) {
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
         this.locationName = locationName;
+    }
+
+    public void setNeighbours(List<String> neighbours) {
         this.neighbours = neighbours;
+    }
+
+    public List<String> getNeighbours() {
+        return neighbours;
     }
 }
