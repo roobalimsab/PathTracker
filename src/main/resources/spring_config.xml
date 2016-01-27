@@ -13,11 +13,6 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
     <util:list id="myList" value-type="java.lang.String">
     </util:list>
 
-    <bean id="locationDetail" class="com.LocationDetail">
-        <property name="locationName" value=""></property>
-        <property name="neighbours" ref="myList"></property>
-    </bean>
-
     <mongo:mongo host="localhost" port="27017" id="mongo" />
     <mongo:db-factory dbname="locationTracker" mongo-ref="mongo" id="mongoDbFactory" />
 
@@ -28,5 +23,10 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
     <bean id="mongoOperations" class="com.MongoOperations">
         <constructor-arg name="mongoTemplate" ref="mongoTemplate"></constructor-arg>
         <constructor-arg name="locationDetail" ref="locationDetail"></constructor-arg>
+    </bean>
+
+    <bean id="locationDetail" class="com.LocationDetail">
+        <property name="locationName" value=""></property>
+        <property name="neighbours" ref="myList"></property>
     </bean>
 </beans>

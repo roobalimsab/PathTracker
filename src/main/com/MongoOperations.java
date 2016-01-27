@@ -3,7 +3,7 @@ package com;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class MongoOperations {
 
@@ -16,10 +16,13 @@ public class MongoOperations {
         this.locationDetail = locationDetail;
     }
 
-    public void insertDocs() {
-        locationDetail.setLocationName("cubbon park");
-        locationDetail.setNeighbours(Arrays.asList("recruitment", "techops"));
+    public void insertDocs(String locationName, List neighbours) {
+        locationDetail.setLocationName(locationName);
+        locationDetail.setNeighbours(neighbours);
         mongoTemplate.save(locationDetail);
     }
 
+    public void deleteAllDocs() {
+        mongoTemplate.dropCollection(LocationDetail.class);
+    }
 }
