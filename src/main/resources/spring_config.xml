@@ -10,7 +10,9 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-    <util:list id="myList" value-type="java.lang.String">
+    <util:list id="vertexList" value-type="com.Vertex">
+    </util:list>
+    <util:list id="edgeList" value-type="com.Edge">
     </util:list>
 
     <mongo:mongo host="localhost" port="27017" id="mongo" />
@@ -23,14 +25,29 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
     <bean id="mongoOperations" class="com.MongoOperations">
         <constructor-arg name="mongoTemplate" ref="mongoTemplate"></constructor-arg>
         <constructor-arg name="locationDetail" ref="locationDetail"></constructor-arg>
+        <constructor-arg name="vertex" ref="vertex"></constructor-arg>
+        <constructor-arg name="edge" ref="edge"></constructor-arg>
     </bean>
 
     <bean id="locationDetail" class="com.LocationDetail">
-        <property name="locationName" value=""></property>
-        <property name="neighbours" ref="myList"></property>
     </bean>
 
-    <bean id="shortestPath" class="com.ShortestPath">
+    <bean id="shortestPathTracker" class="com.ShortestPathTracker">
         <constructor-arg name="mongoOperations" ref="mongoOperations"></constructor-arg>
+    </bean>
+
+    <bean id="vertex" class="com.Vertex">
+    </bean>
+
+    <bean id="edge" class="com.Edge">
+    </bean>
+
+    <bean id="graph" class="com.Graph">
+        <constructor-arg name="vertices" ref="vertexList"></constructor-arg>
+        <constructor-arg name="edges" ref="edgeList"></constructor-arg>
+    </bean>
+
+    <bean id="dijkstraAlgorithm" class="com.DijkstraAlgorithm">
+        <constructor-arg name="graph" ref="graph"></constructor-arg>
     </bean>
 </beans>

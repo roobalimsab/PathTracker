@@ -4,7 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.LinkedList;
 
 public class Main {
 
@@ -17,16 +17,18 @@ public class Main {
         mongoOperations.deleteAllDocs();
 
         mongoOperations.insertDocs("cubbon park", Arrays.asList("recruitment", "techops"));
-        mongoOperations.insertDocs("techops", Arrays.asList("gofigure", "pantry", "cubbon park"));
+        mongoOperations.insertDocs("techops", Arrays.asList("gofigure", "cubbon park", "pantry"));
         mongoOperations.insertDocs("recruitment", Arrays.asList("pharmacy", "cubbon park"));
         mongoOperations.insertDocs("pharmacy", Arrays.asList("clicklist", "recruitment"));
-        mongoOperations.insertDocs("clicklist", Arrays.asList("pharmacy", "bahmini"));
+        mongoOperations.insertDocs("clicklist", Arrays.asList("pharmacy"));
+        mongoOperations.insertDocs("gofigure", Arrays.asList("pantry", "techops"));
+        mongoOperations.insertDocs("pantry", Arrays.asList("techops", "gofigure"));
 
-        ShortestPath shortestPath = (ShortestPath) context.getBean("shortestPath");
+        ShortestPathTracker shortestPathTracker = (ShortestPathTracker) context.getBean("shortestPathTracker");
 
-        List<String> path = shortestPath.trackFromSourceToDestination("clicklist", "pantry");
+        LinkedList<Vertex> path = shortestPathTracker.trackFromSourceToDestination("clicklist", "pantry");
 
-        path.stream().forEach(location -> System.out.println(location));
+        path.stream().forEach(location -> System.out.println(location.getName()));
     }
 
 }
