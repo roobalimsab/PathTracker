@@ -29,4 +29,8 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
         <property name="locationName" value=""></property>
         <property name="neighbours" ref="myList"></property>
     </bean>
+
+    <bean id="shortestPath" class="com.ShortestPath">
+        <constructor-arg name="mongoOperations" ref="mongoOperations"></constructor-arg>
+    </bean>
 </beans>
